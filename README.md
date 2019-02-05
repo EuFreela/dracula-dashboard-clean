@@ -53,7 +53,7 @@ usuario: dracula@dracula.com
 senha: dracula
 </pre>
 
-<p>A versão CLEAN não há plugins instalados. VOu fornecer conforme evolução do projeto.</p>
+<p>A versão CLEAN não há plugins instalados. Vou fornecer conforme evolução do projeto. A cada instalação de um plugin são listados na dashboard automaticamente.</p>
 
 <hr>
 
