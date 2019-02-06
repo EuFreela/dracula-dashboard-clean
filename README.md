@@ -72,6 +72,7 @@ senha: dracula
 ### PLUGINS
 
 1. DRACULA HOSTS: <a href="https://github.com/EuFreela/dracula-hosts">Plugin DH<a>
+2. DRACULA BAT SERVER: <a href="https://github.com/EuFreela/bat-servers">Plugin DBT<a>
 
 
 <hr>
