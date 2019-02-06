@@ -1,269 +1,127 @@
--- phpMyAdmin SQL Dump
--- version 4.8.4
--- https://www.phpmyadmin.net/
---
--- Host: 127.0.0.1
--- Generation Time: 05-Fev-2019 às 21:26
--- Versão do servidor: 10.1.37-MariaDB
--- versão do PHP: 7.3.0
+-- MySQL Workbench Forward Engineering
 
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
+
+-- -----------------------------------------------------
+-- Schema dbDracula
+-- -----------------------------------------------------
+
+-- -----------------------------------------------------
+-- Schema dbDracula
+-- -----------------------------------------------------
+CREATE SCHEMA IF NOT EXISTS `dbDracula` DEFAULT CHARACTER SET utf8 ;
+USE `dbDracula` ;
+
+-- -----------------------------------------------------
+-- Table `dbDracula`.`server`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `dbDracula`.`server` (
+  `id` INT NULL AUTO_INCREMENT,
+  `active` TINYINT(1) NOT NULL COMMENT '0 - inativo; 1 - ativo',
+  `ip` VARCHAR(20) NOT NULL,
+  `port` INT NOT NULL,
+  `created_at` TIMESTAMP NULL,
+  `updated_at` TIMESTAMP NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `dbDracula`.`reload`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `dbDracula`.`reload` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `status` TINYINT(1) NOT NULL,
+  `created_at` TIMESTAMP NULL,
+  `updated_at` TIMESTAMP NULL,
+  `hosts_id` INT NOT NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `dbDracula`.`hosts`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `dbDracula`.`hosts` (
+  `id` INT NULL AUTO_INCREMENT,
+  `online` TINYINT(1) NOT NULL,
+  `ip` VARCHAR(20) NOT NULL,
+  `created_at` TIMESTAMP NULL,
+  `updated_at` TIMESTAMP NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `dbDracula`.`machine`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `dbDracula`.`machine` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `os` VARCHAR(255) NULL,
+  `osversion` VARCHAR(45) NULL,
+  `osuser` VARCHAR(45) NULL,
+  `oshome` VARCHAR(45) NULL,
+  `osproperties` LONGTEXT NULL,
+  `machine` VARCHAR(45) NULL,
+  `created_at` TIMESTAMP NULL,
+  `updated_at` TIMESTAMP NULL,
+  `hosts_id` INT NOT NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `dbDracula`.`plugins`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `dbDracula`.`plugins` (
+  `id` INT NULL AUTO_INCREMENT,
+  `status` TINYINT(1) NOT NULL,
+  `name` VARCHAR(45) NULL,
+  `page` VARCHAR(45) NULL,
+  `shortname` VARCHAR(45) NOT NULL,
+  `img` LONGTEXT NULL,
+  `about` LONGTEXT NULL,
+  `created_at` TIMESTAMP(6) NULL,
+  `updated_at` TIMESTAMP(6) NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `dbDracula`.`systemsg`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `dbDracula`.`systemsg` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `code` INT NOT NULL,
+  `type` VARCHAR(45) NOT NULL,
+  `msg` LONGTEXT NOT NULL,
+  `created_at` TIMESTAMP NULL,
+  `updated_at` TIMESTAMP NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
+
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
+-- -----------------------------------------------------
+-- Data for table `dbDracula`.`server`
+-- -----------------------------------------------------
 START TRANSACTION;
-SET time_zone = "+00:00";
+USE `dbDracula`;
+INSERT INTO `dbDracula`.`server` (`id`, `active`, `ip`, `port`, `created_at`, `updated_at`) VALUES (1, 1, '0.tcp.ngrok.io', 18847, NULL, NULL);
 
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
-
---
--- Database: `dbdracula`
---
-
--- --------------------------------------------------------
-
---
--- Estrutura da tabela `hosts`
---
-
-CREATE TABLE `hosts` (
-  `id` int(11) NOT NULL,
-  `online` tinyint(1) DEFAULT NULL,
-  `ip` varchar(20) DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Estrutura da tabela `machine`
---
-
-CREATE TABLE `machine` (
-  `id` int(11) NOT NULL,
-  `os` varchar(255) DEFAULT NULL,
-  `osversion` varchar(45) DEFAULT NULL,
-  `osuser` varchar(45) DEFAULT NULL,
-  `oshome` varchar(45) DEFAULT NULL,
-  `osproperties` longtext,
-  `machine` varchar(45) DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  `hosts_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Estrutura da tabela `migrations`
---
-
-CREATE TABLE `migrations` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `migration` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `batch` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Extraindo dados da tabela `migrations`
---
-
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
-(1, '2014_10_12_000000_create_users_table', 1),
-(2, '2014_10_12_100000_create_password_resets_table', 1);
-
--- --------------------------------------------------------
-
---
--- Estrutura da tabela `password_resets`
---
-
-CREATE TABLE `password_resets` (
-  `email` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `token` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- --------------------------------------------------------
-
---
--- Estrutura da tabela `plugins`
---
-
-CREATE TABLE `plugins` (
-  `id` int(11) NOT NULL,
-  `status` tinyint(1) DEFAULT NULL,
-  `name` varchar(45) DEFAULT NULL,
-  `shortname` varchar(45) DEFAULT NULL,
-  `page` varchar(45) DEFAULT NULL,
-  `img` longtext NOT NULL,
-  `about` longtext NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Estrutura da tabela `reload`
---
-
-CREATE TABLE `reload` (
-  `id` int(11) NOT NULL,
-  `status` tinyint(1) DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Extraindo dados da tabela `reload`
---
-
-INSERT INTO `reload` (`id`, `status`, `created_at`, `updated_at`) VALUES
-(1, 0, NULL, NULL);
-
--- --------------------------------------------------------
-
---
--- Estrutura da tabela `server`
---
-
-CREATE TABLE `server` (
-  `id` int(11) NOT NULL,
-  `active` tinyint(1) DEFAULT NULL COMMENT '0 - inativo; 1 - ativo',
-  `ip` varchar(20) DEFAULT NULL,
-  `port` int(11) DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Extraindo dados da tabela `server`
---
-
-INSERT INTO `server` (`id`, `active`, `ip`, `port`, `created_at`, `updated_at`) VALUES
-(1, 1, '0.tcp.ngrok.io', 11924, NULL, NULL);
-
--- --------------------------------------------------------
-
---
--- Estrutura da tabela `users`
---
-
-CREATE TABLE `users` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `email` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `email_verified_at` timestamp NULL DEFAULT NULL,
-  `password` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table `hosts`
---
-ALTER TABLE `hosts`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `machine`
---
-ALTER TABLE `machine`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `migrations`
---
-ALTER TABLE `migrations`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `password_resets`
---
-ALTER TABLE `password_resets`
-  ADD KEY `password_resets_email_index` (`email`);
-
---
--- Indexes for table `plugins`
---
-ALTER TABLE `plugins`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `reload`
---
-ALTER TABLE `reload`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `server`
---
-ALTER TABLE `server`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `users`
---
-ALTER TABLE `users`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `users_email_unique` (`email`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `hosts`
---
-ALTER TABLE `hosts`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `machine`
---
-ALTER TABLE `machine`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `migrations`
---
-ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- AUTO_INCREMENT for table `plugins`
---
-ALTER TABLE `plugins`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `reload`
---
-ALTER TABLE `reload`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT for table `server`
---
-ALTER TABLE `server`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT for table `users`
---
-ALTER TABLE `users`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 COMMIT;
 
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+-- -----------------------------------------------------
+-- Data for table `dbDracula`.`reload`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `dbDracula`;
+INSERT INTO `dbDracula`.`reload` (`id`, `status`, `created_at`, `updated_at`, `hosts_id`) VALUES (1, 0, NULL, NULL, DEFAULT);
+
+COMMIT;
