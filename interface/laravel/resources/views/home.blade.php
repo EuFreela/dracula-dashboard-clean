@@ -24,7 +24,7 @@
                                         <div class="card-body">
                                         <h5 class="card-title">{{$plugin->name}}</h5>
                                         <p class="card-text">{{$plugin->about}}</p>
-                                        <a href="{{$plugin->page}}" class="btn btn-primary">Hosts ({{count($plugins)}})</a>
+                                        <a href="{{$plugin->page}}" class="btn btn-primary">{{$plugin->shortname}}</a>
                                         <p class="card-text"><small class="text-muted">install {{date('d-m-Y H:i',strtotime($plugin->created_at))}}</small></p>
                                         </div>
                                     </div>
