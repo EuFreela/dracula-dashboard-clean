@@ -40,7 +40,36 @@ class SystemsgTableSeeder extends Seeder
                 'msg' => 'Não foi possível estabelecer conexão.',
                 'created_at' =>  new DateTime(),
                 'updated_at' => new DateTime()         
-            ]
+            ],
+            [
+                'code' => 5,
+                'type' => 'success',
+                'msg' => 'Cadastro realizado com sucesso.',
+                'created_at' =>  new DateTime(),
+                'updated_at' => new DateTime()         
+            ],
+            [
+                'code' => 6,
+                'type' => 'error',
+                'msg' => 'Não foi possível efeturar o cadastro.',
+                'created_at' =>  new DateTime(),
+                'updated_at' => new DateTime()         
+            ],
+            [
+                'code' => 7,
+                'type' => 'success',
+                'msg' => 'Conteúdo deletado com sucesso.',
+                'created_at' =>  new DateTime(),
+                'updated_at' => new DateTime()         
+            ],
+            [
+                'code' => 8,
+                'type' => 'error',
+                'msg' => 'Não foi possível excluir o caastro.',
+                'created_at' =>  new DateTime(),
+                'updated_at' => new DateTime()         
+            ],
+            
         );
         DB::table('systemsg')->insert($data);
     }
