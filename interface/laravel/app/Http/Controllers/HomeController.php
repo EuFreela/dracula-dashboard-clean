@@ -24,6 +24,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home')->with(['plugins'=>DB::table('plugins')->get()]);
+        return view('home')->with([
+            'plugins'=>DB::table('plugins')->get(),
+            'hosts' => DB::table('hosts')->count()
+            ]);
     }
 }
