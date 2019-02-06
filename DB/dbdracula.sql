@@ -106,22 +106,3 @@ ENGINE = InnoDB;
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
-
--- -----------------------------------------------------
--- Data for table `dbDracula`.`server`
--- -----------------------------------------------------
-START TRANSACTION;
-USE `dbDracula`;
-INSERT INTO `dbDracula`.`server` (`id`, `active`, `ip`, `port`, `created_at`, `updated_at`) VALUES (1, 1, '0.tcp.ngrok.io', 18847, NULL, NULL);
-
-COMMIT;
-
-
--- -----------------------------------------------------
--- Data for table `dbDracula`.`reload`
--- -----------------------------------------------------
-START TRANSACTION;
-USE `dbDracula`;
-INSERT INTO `dbDracula`.`reload` (`id`, `status`, `created_at`, `updated_at`, `hosts_id`) VALUES (1, 0, NULL, NULL, DEFAULT);
-
-COMMIT;
