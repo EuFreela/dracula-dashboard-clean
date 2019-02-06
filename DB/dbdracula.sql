@@ -97,6 +97,7 @@ CREATE TABLE `plugins` (
   `id` int(11) NOT NULL,
   `status` tinyint(1) DEFAULT NULL,
   `name` varchar(45) DEFAULT NULL,
+  `shortname` varchar(45) DEFAULT NULL,
   `page` varchar(45) DEFAULT NULL,
   `img` longtext NOT NULL,
   `about` longtext NOT NULL,
